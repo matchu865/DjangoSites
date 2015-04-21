@@ -1,0 +1,106 @@
+{% if golfer_list and round_list and course_list %}
+<body>
+	<div class="container" id="introDiv">
+	<h1>Welcome to GScore: The community golf score leader board!</h1>	
+	</div>
+	
+	<br><br>
+
+	<!-- Section for user input -->
+	<div class="container" id="infoDiv">
+		<h2>Please enter your round information below:</h2>
+		<form role="form" action={%url 'golfers:course'}>
+			<div class="form-group">
+				<label for="courseSel">Select your course: </label>
+				<select class="form-control" id="courseSel">
+					{%for course in course_list%}	
+					<option>{{course.course_name}}</option>
+					{%endfor%}
+				</select>
+				<label for="first_name">First Name: </label>
+				<input type="text" class="form-control" id="first_name">
+				<label for="last_name">Last Name: </label>
+				<input type="text" class="form-control" id="last_name">
+				<label for="age">Age: </label>
+				<input type="text" class="form-control" id="age">
+				<label for="score">Score of Round: </label>
+				<input type="number" class="form-control" id="score">
+				<label for="date">Date of Round: </label>
+				<input type="date" class="form-control" id="date" name="round_date" placeholder="dd/mm/yyyy">
+				<label for="time">Time of Round: </label>
+				<input type="time" class="form-control" id="time" name="round_date" placeholder="dd/mm/yyyy">
+				<br>
+				<button type="submit" class="btn btn-default bn-large btn-block btn-primary">Submit</button>
+			</div>		
+		</form>	
+	</div>
+	<br><br>
+	
+	<!-- End user input -->
+
+	<!-- Begin leaderboard -->
+<div class="container" id="leaderDiv">
+	<h2>Pebble Beach Leader Board</h2>
+	<p>Par for the course is: </p>            
+	<table class="table table-striped">
+		<thead>
+      	<tr>
+         	<th>Firstname</th>
+         	<th>Lastname</th>
+         	<th>Age</th>
+         	<th>Score</th>
+         	<th>Putts</th>
+         	<th>GIR</th>
+         	<th>Fairways</th>
+         	<th>Date</th>
+      	</tr>
+		</thead>
+    	<tbody>
+    	
+    	{% for round in round_list %}	
+      	<tr>
+         	<td>{{round.golfer.first_name}}</td>
+        		<td>{{round.golfer.last_name}}</td>
+        		<td>{{round.golfer.age}}</td>
+        		<td>{{round.score}}</td>
+        		<td>{{round.putts}}</td>
+        		<td>{{round.gir}}</td>
+        		<td>{{round.fairways}}</td>
+        		<td>{{round.round_date}}</td>
+      	</tr>
+      	{% endfor %}
+  	
+		</tbody>
+	</table>
+</div>
+
+<br><br>
+
+
+<br><br>
+
+	<!-- End leaderboard -->
+
+</body>
+{%endif %}
+
+
+
+<!--
+{% if golfer_list and round_list%}
+	<ul>
+	{% for golfer in golfer_list %}
+		<li>{{golfer.last_name}}</li>
+	{% endfor %}
+	</ul>
+	<ul>
+	{% for round in round_list %}
+		<li>{{round.score}} by {{round.golfer}} age {{round.golfer.age}}</li>
+	{% endfor %}
+	</ul>
+
+{% else %}
+	<p>No golfers available.</p>
+{%endif%}
+
+-->
