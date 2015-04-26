@@ -1,0 +1,10 @@
+<!-- HTML Form for testing Django forms -->
+
+	<!-- FORM FOR TESTING -->
+<form action={% url 'golfers:create'%} method="post">
+	{% csrf_token %}
+	{{ golferModelForm}}
+	{{ courseModelForm}}
+	{{ roundModelForm }}
+	<input type = "submit" value = "Submit" />
+</form>

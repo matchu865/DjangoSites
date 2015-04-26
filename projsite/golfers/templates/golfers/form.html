@@ -1,0 +1,27 @@
+
+{%if golferModelForm %}
+<div> Enter Golfer Information Below </div>
+<div class="container" id="infoDiv">
+	<h2>Please enter your round information below:</h2>		
+	<form action={% url 'golfers:adduser' %} method="post">
+		{% csrf_token %}
+		{{ golferModelForm }}
+		<input type = "submit" value = "Submit" />
+</form>
+</div>
+
+
+{%elif courseModelForm %}
+<div> Enter Course Information Below </div>
+<div class="container" id="infoDiv">
+	<h2>Please enter your course information below:</h2>		
+	<form action={% url 'golfers:addcourse' %} method="post">
+		{% csrf_token %}
+		{{ courseModelForm }}
+		<input type = "submit" value = "Submit" />
+</form>
+</div>
+
+{%else%}
+<p>Could not load form</p>
+{%endif%}
