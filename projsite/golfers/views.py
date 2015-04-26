@@ -28,6 +28,7 @@ def index(request):
 
 	else:
 		roundModelForm = RoundModelForm()
+		courseSelectForm = CourseSelectForm()
 	context = {'golfer_list' : golfer_list, 
 				'round_list' : round_list, 
 				'course_list' : course_list,
@@ -57,6 +58,7 @@ def course(request, course_id):
 			return HttpResponseRedirect(reverse('golfers:course', args=(courseid,)))
 	else:
 		roundModelForm = RoundModelForm()
+		courseSelectForm = CourseSelectForm()
 
 	context = {'round_list' : round_list,
 				'golfer_list' : golfer_list,
@@ -92,9 +94,6 @@ def addcourse(request):
 
 
 
-
-
-
 def create(request):
 	if request.method == 'POST':
 		courseModelForm = CourseModelForm(request.POST)
@@ -109,27 +108,6 @@ def create(request):
 	return render(request, 'golfers/create.html', {'roundModelForm': roundModelForm,
 				 'courseModelForm': courseModelForm, 'golferModelForm' : golferModelForm})
 
-##attempting to inline forms on the first try :/
-# def create(request):
-# 	GolferInlineFormSet = inlineformset_factory(Golfer, Round, form = GolferModelForm)
 
-# 	if request.method == 'POST':
-# 		roundModelForm = RoundModelForm(request.POST)
-
-# 		if roundModelForm.is_valid():
-# 			new_round = roundModelForm.save()
-# 			golferInlineFormSet = GolferInlineFormSet(request.POST, request.FILES, instance = new_round)
-
-# 			if GolferInlineFormSet.is_valid():
-# 				golferInlineFormSet.save()
-# 				## need to figure out where I'm sending them but for now
-# 				return HttpResponse("Thanks for submitting!!")
-# 			else:
-# 				classificationformset = ClassificationInlineFormSet(request.POST, request.FILES, instance=new_round)
-
-# 	else:
-# 		golferInlineFormSet = GolferInlineFormSet()
-# 		roundModelForm = RoundModelForm()
-# 	return render(request, 'golfers/create.html', {'roundModelForm': roundModelForm})
 
 
