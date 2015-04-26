@@ -3,29 +3,36 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.forms.models import inlineformset_factory
 from django.core.urlresolvers import reverse
 
-from .forms import NameForm,GolferModelForm,CourseModelForm,RoundModelForm
+from .forms import NameForm,GolferModelForm,CourseModelForm,RoundModelForm, CourseSelectForm
 
 from .models import Golfer, Round,Course
 
 def index(request):
 	golfer_list = Golfer.objects.order_by('-last_name')
-	round_list = Round.objects.order_by('-golfer')
+	round_list = Round.objects.order_by('-score').reverse()
 	course_list = Course.objects.order_by('-course_name')
 
 	#handle adding round
 	if request.method == 'POST':
-		roundModelForm = RoundModelForm(request.POST)
+		roundModelForm = RoundModelForm(request.POST)		
 		if roundModelForm.is_valid():
 			#need to redirect to their course page
 			roundModelForm.save()
 			courseid = roundModelForm.cleaned_data['course'].id
 			return HttpResponseRedirect(reverse('golfers:course', args=(courseid,)))
+		
+		courseSelectForm = CourseSelectForm(request.POST)
+		if courseSelectForm.is_valid():
+			courseid = courseSelectForm.cleaned_data['course'].id
+			return HttpResponseRedirect(reverse('golfers:course', args=(courseid,)))
+
 	else:
 		roundModelForm = RoundModelForm()
 	context = {'golfer_list' : golfer_list, 
 				'round_list' : round_list, 
 				'course_list' : course_list,
-				'roundModelForm' : roundModelForm}
+				'roundModelForm' : roundModelForm,
+				'courseSelectForm' : CourseSelectForm}
 	
 	return render(request, 'golfers/index.html', context)
 

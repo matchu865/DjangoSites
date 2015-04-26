@@ -23,3 +23,9 @@ class RoundModelForm(forms.ModelForm):
 		model = Round
 		round_date = forms.DateField(label = 'date published', input_formats = ['%Y-%m-%d %H:%M'], initial=date.today)
 		fields = '__all__'
+
+class CourseSelectForm(forms.ModelForm):
+	class Meta:
+		model = Round
+		fields = ['course',]
+

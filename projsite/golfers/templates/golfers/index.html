@@ -1,3 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GScore | Home</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	{%load staticfiles%}
+
+	<style type="text/css">
+		body {background-image: url("http://i.imgur.com/hRdn4Kb.jpg");}
+		#infoDiv {background-color: #ffffff; opacity: 0.85}
+		#leaderDiv {background-color: #ffffff; opacity: 0.95}
+		#courseDiv {background-color: #ffffff; opacity: 0.90}
+	</style>
+</head>
+<link rel ="stylesheet" type = "text/css" href ="{%static 'golfers/style.css'%}" />
+
+
+
+
 {% if golfer_list and course_list%}
 <body>
 	<div class="container" id="introDiv">
@@ -13,17 +37,21 @@
 			{{ roundModelForm }}
 			<input type = "submit" value = "Submit" />
 	</form>
-	</div>
-
 	<p>To enter a new user click <a href="{% url 'golfers:adduser'%}">here</a></p>
 	<p>To enter a new course click <a href="{% url 'golfers:addcourse'%}">here</a></p>
+	</div>
 
-
-
-	<br><br>
-
-
-
+{%if course_list|length > 1 %}
+<div class = "container" id = "courseDiv">
+	<h2>Select an individual course to view scores from:</h2>
+	<form action={% url 'golfers:index' %} method="post">
+		{% csrf_token %}
+		{{ courseSelectForm }}
+		<input type = "submit" value = "Submit" />
+	</form>
+</div>
+{%endif%}
+<br><br>
 	<!-- End user input -->
 
 	<!-- Begin leaderboard -->
@@ -84,4 +112,4 @@
 
 </body>
 {%endif %}
-
+</html>
