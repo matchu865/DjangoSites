@@ -50,13 +50,19 @@ def course(request, course_id):
 			roundModelForm.save()
 			courseid = roundModelForm.cleaned_data['course'].id
 			return HttpResponseRedirect(reverse('golfers:course', args=(courseid,)))
+		
+		courseSelectForm = CourseSelectForm(request.POST)
+		if courseSelectForm.is_valid():
+			courseid = courseSelectForm.cleaned_data['course'].id
+			return HttpResponseRedirect(reverse('golfers:course', args=(courseid,)))
 	else:
 		roundModelForm = RoundModelForm()
 
 	context = {'round_list' : round_list,
 				'golfer_list' : golfer_list,
 				'course_list' : localcourse,
-				'roundModelForm' : roundModelForm}
+				'roundModelForm' : roundModelForm,
+				'courseSelectForm': CourseSelectForm}
 	# return HttpResponse("HI: " + str(round_list[0]))
 	return 	render(request, 'golfers/index.html', context)
 

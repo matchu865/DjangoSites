@@ -41,7 +41,7 @@
 	<p>To enter a new course click <a href="{% url 'golfers:addcourse'%}">here</a></p>
 	</div>
 
-{%if course_list|length > 1 %}
+
 <div class = "container" id = "courseDiv">
 	<h2>Select an individual course to view scores from:</h2>
 	<form action={% url 'golfers:index' %} method="post">
@@ -50,7 +50,7 @@
 		<input type = "submit" value = "Submit" />
 	</form>
 </div>
-{%endif%}
+
 <br><br>
 	<!-- End user input -->
 

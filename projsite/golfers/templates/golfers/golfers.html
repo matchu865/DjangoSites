@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GScore | Home</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	{%load staticfiles%}
+
+	<style type="text/css">
+		#infoDiv {background-color: #ffffff; opacity: 0.85}
+	</style>
+</head>
+
+	{%if round_list %}
+	<table class="table table-striped">
+		<thead>
+      	<tr>
+         	<th>Firstname</th>
+         	<th>Lastname</th>
+         	<th>Age</th>
+         	<th>Score</th>
+         	<th>Putts</th>
+         	<th>GIR</th>
+         	<th>Fairways</th>
+         	<th>Date</th>
+      	</tr>
+		</thead>
+    	<tbody>
+    	
+    	{% for round in round_list %}	
+      	<tr>
+         	<td>{{round.golfer.first_name}}</td>
+        		<td>{{round.golfer.last_name}}</td>
+        		<td>{{round.golfer.age}}</td>
+        		<td>{{round.score}}</td>
+        		<td>{{round.putts}}</td>
+        		<td>{{round.gir}}</td>
+        		<td>{{round.fairways}}</td>
+        		<td>{{round.round_date}}</td>
+        		<td>{{round.course.course_name}}</td>
+      	</tr>
+      	{% endfor %}  	
+		</tbody>
+	</table>
+	{%else%}
+	<h2>No rounds have currently been recorded at this course.</h2>
+	{%endif%}
